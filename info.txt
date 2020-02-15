@@ -11,6 +11,9 @@ brew services restart mongodb-community
 /usr/local/opt/mongodb-community/bin/mongo
 
 #Mongo DB install folder
+/usr/local/opt/mongodb-community
+
+#Mongo DB bin folder
 /usr/local/opt/mongodb-community/bin
 
 #Start the deamon with replica set
