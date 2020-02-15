@@ -1,6 +1,12 @@
 #To start mongodb run
 brew services start mongodb-community
 
+#To stop mongodb run
+mongodb-community
+
+#To Restart mongodb run
+brew services restart mongodb-community
+
 #Mongo DB client
 /usr/local/opt/mongodb-community/bin/mongo
 
