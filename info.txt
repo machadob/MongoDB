@@ -1,0 +1,21 @@
+#To start mongodb run
+brew services start mongodb-community
+
+#Mongo DB client
+/usr/local/opt/mongodb-community/bin/mongo
+
+#Mongo DB install folder
+/usr/local/opt/mongodb-community/bin
+
+#Start the deamon with replica set
+/usr/local/opt/mongodb-community/bin/mongod --dbpath /Users/burton/0000000_LEARN/00001_Projects/MongoDB/data --logpath /Users/burton/0000000_LEARN/00001_Projects/MongoDB/Logs/mlog_00.log  --replSet testrepl --noauth
+
+#Find the URL for Compass:
+mongo --eval 'rs.status()'
+
+#Compass URL:
+mongodb://localhost: 27017/admin?replicaSet=testrepl
+mongodb://127.0.0.1/?replicaSet=testrepl
+
+#To enable change streams connect to the instance through command line client (/usr/local/opt/mongodb-community/bin/mongo) and run the following command.
+rs.initiate()
