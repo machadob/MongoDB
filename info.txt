@@ -16,10 +16,11 @@ brew services restart mongodb-community
 #Mongo DB bin folder
 /usr/local/opt/mongodb-community/bin
 
-#Mongo DB data and log  folder
+#Mongo DB data folder, log folder and IP bind address.
 Run ps -xa | grep mongod to find the config file (it should show up in the output as --config)
 Open the config file and look in the storage (storage:) section fot the DB files path.
 The log folder location will be in the systemLog (systemLog:) section.
+The IP bind address will be in the net (net:) section.
 
 #Start the deamon with replica set
 /usr/local/opt/mongodb-community/bin/mongod --dbpath /Users/burton/0000000_LEARN/00001_Projects/MongoDB/data --logpath /Users/burton/0000000_LEARN/00001_Projects/MongoDB/Logs/mlog_00.log  --replSet testrepl --noauth
