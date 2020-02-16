@@ -23,4 +23,17 @@ public class ClientTest {
         testCol.insertOne(document);
         System.out.println("END");
     }
+    
+        public static List<String> getCollection(MongoClient mc, String db, String col){
+        List<String> colList = new ArrayList<>();
+        MongoDatabase mdb = mc.getDatabase(db);
+        MongoCollection<Document> collection = mdb.getCollection(col);
+        MongoCursor<Document> cursor = collection.find().iterator();
+        try{
+            colList.add(cursor.next().toJson());
+        }finally {
+            cursor.close();
+        }
+        return colList;
+    }
 }
