@@ -76,4 +76,19 @@ public class ClientTest {
         }
         return colList;
     }
+
+    public static List<String> getFilteredCollection(MongoClient mc, String db, String col){
+        List<String> colList = new ArrayList<>();
+        MongoDatabase mdb = mc.getDatabase(db);
+        MongoCollection<Document> collection = mdb.getCollection(col);
+        MongoCursor<Document> cursor = collection.find().iterator();
+        try{
+            while(cursor.hasNext()){
+                colList.add(cursor.next().toJson());
+            }
+        }finally {
+            cursor.close();
+        }
+        return colList;
+    }
 }
