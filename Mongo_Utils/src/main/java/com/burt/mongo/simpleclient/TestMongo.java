@@ -1,5 +1,6 @@
 package com.burt.mongo.simpleclient;
 
+
 import com.mongodb.client.*;
 import org.bson.Document;
 
@@ -7,8 +8,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ClientTest {
+public class TestMongo {
     public static void main(String[] args) {
+        MongoClient mongoClient = MongoClients.create();
+
+        mongoClient.close();
+        System.out.println("END");
+    }
+
+    private void test_001() {
         MongoClient mongoClient = MongoClients.create();
 //        populateCollection(mongoClient, "test", "test_col");
         populateCollection(mongoClient, "test", "test_col");
@@ -67,7 +75,8 @@ public class ClientTest {
                         .append("location", Arrays.asList(-179.92502, 110.8279556)))
                 .append("stars", 4)
                 .append("food", Arrays.asList("Apple", "Dates", "Milk"));
-        testCol.insertOne(document);        document = new Document("name", "Sunny Joe")
+        testCol.insertOne(document);
+        document = new Document("name", "Sunny Joe")
                 .append("contact", new Document("phone", "001-444-0144")
                         .append("email", "sunny.joe@example.com")
                         .append("location", Arrays.asList(-180.92502, 110.8279556)))
@@ -76,31 +85,31 @@ public class ClientTest {
         testCol.insertOne(document);
     }
 
-    public static List<String> getCollection(MongoClient mc, String db, String col){
+    public static List<String> getCollection(MongoClient mc, String db, String col) {
         List<String> colList = new ArrayList<>();
         MongoDatabase mdb = mc.getDatabase(db);
         MongoCollection<Document> collection = mdb.getCollection(col);
         MongoCursor<Document> cursor = collection.find().iterator();
-        try{
-            while(cursor.hasNext()){
+        try {
+            while (cursor.hasNext()) {
                 colList.add(cursor.next().toJson());
             }
-        }finally {
+        } finally {
             cursor.close();
         }
         return colList;
     }
 
-    public static List<String> getFilteredCollection(MongoClient mc, String db, String col){
+    public static List<String> getFilteredCollection(MongoClient mc, String db, String col) {
         List<String> colList = new ArrayList<>();
         MongoDatabase mdb = mc.getDatabase(db);
         MongoCollection<Document> collection = mdb.getCollection(col);
         MongoCursor<Document> cursor = collection.find().iterator();
-        try{
-            while(cursor.hasNext()){
+        try {
+            while (cursor.hasNext()) {
                 colList.add(cursor.next().toJson());
             }
-        }finally {
+        } finally {
             cursor.close();
         }
         return colList;
