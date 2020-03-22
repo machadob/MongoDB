@@ -34,3 +34,5 @@ mongodb://127.0.0.1/?replicaSet=testrepl
 
 #To enable change streams connect to the instance through command line client (/usr/local/opt/mongodb-community/bin/mongo) and run the following command.
 rs.initiate()
+#Useful Links:
+https://mkyong.com/mongodb/java-mongodb-query-document/
