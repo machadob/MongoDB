@@ -1,6 +1,7 @@
 package com.burt.mongo.simpleclient;
 
 
+import com.mongodb.DBCursor;
 import com.mongodb.client.*;
 import org.bson.Document;
 
@@ -9,20 +10,30 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestMongo {
+
     public static void main(String[] args) {
         MongoClient mongoClient = MongoClients.create();
-
+        TestMongo testMongo = new TestMongo();
+        testMongo.test_001(mongoClient);
         mongoClient.close();
         System.out.println("END");
     }
 
-    private void test_001() {
-        MongoClient mongoClient = MongoClients.create();
+    private void test_001(MongoClient mongoClient) {
+        MongoDatabase database = mongoClient.getDatabase("test");
+        MongoCollection<Document> collection = database.getCollection("test_col");
+        FindIterable<Document> cursor = collection.find();
+        for (Document d : cursor) {
+            System.out.println(d);
+        }
+        System.out.println("END");
+    }
+
+    private void test_002(MongoClient mongoClient) {
 //        populateCollection(mongoClient, "test", "test_col");
         populateCollection(mongoClient, "test", "test_col");
 //        populateCollectionMany(mongoClient, "test", "test_col");
         List<String> colList = getCollection(mongoClient, "test", "test_col");
-        mongoClient.close();
         System.out.println("END");
     }
 
