@@ -6,7 +6,11 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.QueryBuilder;
 import com.mongodb.client.*;
+import org.bson.BsonDocument;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.json.JsonMode;
+import org.bson.json.JsonWriterSettings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,11 +44,25 @@ public class TestMongo {
     private void test_001(MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("test");
         MongoCollection<Document> collection = database.getCollection("inventory");
+        Bson bson = or(eq("status", "A"), lt("qty", 30));
+//        System.out.printf("BSON : " + bson.toBsonDocument().toJson());
+        JsonWriterSettings relaxed = JsonWriterSettings.builder().outputMode(JsonMode.RELAXED).build();
+//        MongoClient.getDefaultCodecRegistry();
+//        BsonDocument bsonDocument = bson.toBsonDocument(BsonDocument.class, MongoClient.);
+//        System.out.println("output (RELAXED) = " + bson.toBsonDocument().toJson(relaxed));
+
+        String json = "{ \"timestamp\" : 1486064586641 }";
+        Document doc = Document.parse(json);
+        System.out.println("json : " + json);
+        String ss = "Or Filter{filters=[Filter{fieldName='status', value=A}, Operator Filter{fieldName='qty', operator='$lt', value=30}]}";
+        Bson bb = Document.parse(json);
         FindIterable<Document> cursor = collection.find(or(eq("status", "A"), lt("qty", 30)));
         for (Document d : cursor) {
             System.out.println(d);
         }
     }
+//    string json = "{ 'foo' : 'bar' }";
+//    BsonDocument document = BsonDocument.Parse(json);
 
     private void test_002(MongoClient mongoClient) {
         MongoDatabase database = mongoClient.getDatabase("test");
